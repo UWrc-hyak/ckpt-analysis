@@ -27,7 +27,7 @@ Post processing and data visualization was performed in R.
 Data was acquired on Mar 29 19:44 and included 1,156,650 jobs. This number includes separate instanced of the same JobID that was requeued or pre-empted. Of these jobs, 493,965 were array jobs (42.7%). 
 
 ![](/selected_plots/jobsxstate_bar.jpg 'Jobs by State')
-The bar chart to show jobs per state, gray proportions show proportion of the job that were submitted as array jobs (does not include PENDING and RUNNING Jobs).
+The bar chart to shows jobs per state, gray proportions show proportion of the job that were submitted as array jobs (does not include PENDING and RUNNING Jobs).
 
 
 | Job State        |      Number of Jobs      |
@@ -63,12 +63,12 @@ On average summed job run time for `ckpt` since January 1, 2024 was 0.87 hours (
 
 ### Observations
 
-* It seems like most folks have adapted to the `ckpt` time limit and use it for short jobs except in rare cases. 
+* It seems like most folks have adapted to the `ckpt` time limit and use it for short jobs except in rare cases. 98% of summed job time is less than the current limit (305 min).
 * Although unlikely, if the current mean run time remains consistent (42 - 52 min), increasing `ckpt` time limit by a few hours would not change dramatically change the run time distribution on `ckpt`. 
 
-> For example,  when considering only COMPLETED, REQUEUED, and PREEMPTED job states, (n=576,873 jobs), the majority of jobs are under the current limit (560,514 jobs;97%) and if the time limit were increased to 10 hours 568,996 jobs would be under the limit (99%) or a difference of 8,482 jobs.
+> For example,  when considering only COMPLETED, REQUEUED, and PREEMPTED job states, (n=576,873 jobs), the majority of jobs are under the current limit (560,514 jobs;97%) and if the time limit were increased to 10 hours 568,996 jobs would be under the limit (99%) or a difference of 8,482 jobs. Preempted would still be preempted. 
 
-* However, a minor increse might mean that a small percentage of jobs (2%) do not have to be requeued, saving some SLURM traffic.  
+* However, a minor increse might mean that a small percentage of jobs (maybe 2%) do not have to be requeued, saving some SLURM traffic.  
 * Increasing `ckpt` time limit would probably lead to more `ckpt` traffic in general since folks will adpat to the new time limit and start sending jobs that migh tbe expected to take longer, and could expand `ckpt` usage by demo accounts.
 * There was a weak but significant postitive linear relationship between job run time and requsted job time (`sbatch` directive `--time=`) (R-squared = 0.129). However, the data violates the assumption normality. Folks are requesting adequate time for their jobs, but there are some cases of requesting very long time limits I suppose to gaurenteed the job will finish. 
 
